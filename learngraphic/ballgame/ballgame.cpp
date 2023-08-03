@@ -59,6 +59,8 @@ int main()
 		gdata.y += gdata.vy;
 		if (_kbhit() != 0) {
 			char c = _getch();
+			if (c == 27)
+				break;
 			if (c == 'a') {
 				if (gdata.barLeft > -400) {
 					gdata.barLeft -= 20;
