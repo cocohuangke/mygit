@@ -220,6 +220,12 @@ int main()
 		}
 		snakeReturn(&snake);
 		if (isGameOver(&snake) == true) {
+			settextcolor(RED);
+			setbkmode(TRANSPARENT);
+			settextstyle(80, 0, "微软雅黑");
+			char str[] = "游戏结束";
+			outtextxy(300, 300, str);
+			Sleep(5000);
 			initSnake(&snake, 5);
 			createFood(&food, &snake);
 		}
