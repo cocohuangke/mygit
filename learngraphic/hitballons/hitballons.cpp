@@ -13,11 +13,11 @@ typedef struct {
 	int v;
 	int r;
 	COLORREF color;
-}ballon;
+}balloon;
 
-ballon generateBallon()
+balloon generateBallon()
 {
-	ballon b;
+	balloon b;
 	int m, n;
 	m = 100;
 	n = 700;
@@ -37,9 +37,9 @@ int main()
 	setbkcolor(WHITE);
 	cleardevice();
 
-	ballon arrBallons[MAX_IN_WINDOW];
+	balloon arrBalloons[MAX_IN_WINDOW];
 	for (int i = 0; i < MAX_IN_WINDOW; i++)
-		arrBallons[i] = generateBallon();
+		arrBalloons[i] = generateBallon();
 
 	int current = MAX_IN_WINDOW;
 	int mouseX = 0;
@@ -54,26 +54,26 @@ int main()
 
 		cleardevice();
 		for (int i = 0; i < MAX_IN_WINDOW; i++) {
-			setfillcolor(arrBallons[i].color);
-			solidcircle(arrBallons[i].x, arrBallons[i].y, arrBallons[i].r);
+			setfillcolor(arrBalloons[i].color);
+			solidcircle(arrBalloons[i].x, arrBalloons[i].y, arrBalloons[i].r);
 		}
 
 		for (int i = 0; i < MAX_IN_WINDOW; i++)
-			arrBallons[i].y -= arrBallons[i].v;
+			arrBalloons[i].y -= arrBalloons[i].v;
 
 		int i = 0;
 		while (i < current) {
-			int y = arrBallons[i].y;
+			int y = arrBalloons[i].y;
 			if (y < -BALLON_RADIUS) {
 				for (int j = i; j < current - 1; j++)
-					arrBallons[j] = arrBallons[j + 1];
+					arrBalloons[j] = arrBalloons[j + 1];
 				current--;
 			}
 			else
 				i++;
 		}
 		if (current < MAX_IN_WINDOW) {
-			arrBallons[current] = generateBallon();
+			arrBalloons[current] = generateBallon();
 			current++;
 		}
 		setlinecolor(RGB(237, 178, 29));
@@ -84,7 +84,8 @@ int main()
 
 		QueryPerformanceCounter(&endCount);
 		long long elapse = (endCount.QuadPart - startCount.QuadPart) * 1000000 / F.QuadPart;
-		printf("%lld\n", elapse);
+
+
 
 		while (elapse < 1000000 / 60) {
 			Sleep(1);
@@ -99,12 +100,12 @@ int main()
 				else if (msg.message == WM_LBUTTONDOWN) {
 					int i = 0;
 					while (i < current) {
-						int ballX = arrBallons[i].x;
-						int ballY = arrBallons[i].y;
+						int ballX = arrBalloons[i].x;
+						int ballY = arrBalloons[i].y;
 						int distance = (int)sqrt(pow(ballY - msg.y, 2) + pow(ballX - msg.x, 2));
 						if (distance < BALLON_RADIUS) {
 							for (int j = i; j < current - 1; j++)
-								arrBallons[j] = arrBallons[j + 1];
+								arrBalloons[j] = arrBalloons[j + 1];
 							current--;
 						}
 						else
@@ -114,6 +115,7 @@ int main()
 			}
 			QueryPerformanceCounter(&endCount);
 			elapse = (endCount.QuadPart - startCount.QuadPart) * 1000000 / F.QuadPart;
+
 		}
 		FlushBatchDraw();
 	}
