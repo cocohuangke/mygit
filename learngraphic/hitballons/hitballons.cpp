@@ -84,6 +84,7 @@ int main()
 
 		QueryPerformanceCounter(&endCount);
 		long long elapse = (endCount.QuadPart - startCount.QuadPart) * 1000000 / F.QuadPart;
+		printf("%lld\n", elapse);
 
 		while (elapse < 1000000 / 60) {
 			Sleep(1);
