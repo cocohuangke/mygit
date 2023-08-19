@@ -58,8 +58,9 @@ int main()
 			solidcircle(arrBalloons[i].x, arrBalloons[i].y, arrBalloons[i].r);
 		}
 
-		for (int i = 0; i < MAX_IN_WINDOW; i++)
+		for (int i = 0; i < MAX_IN_WINDOW; i++) {
 			arrBalloons[i].y -= arrBalloons[i].v;
+		}
 
 		int i = 0;
 		while (i < current) {
