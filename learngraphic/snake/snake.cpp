@@ -222,9 +222,9 @@ int main()
 		if (isGameOver(&snake) == true) {
 			settextcolor(RED);
 			setbkmode(TRANSPARENT);
-			settextstyle(80, 60, "微软雅黑");
+			settextstyle(100, 40, "微软雅黑");
 			char str[] = "游戏结束";
-			outtextxy(300, 300, str);
+			outtextxy(200, 200, str);
 			FlushBatchDraw();
 			Sleep(5000);
 			initSnake(&snake, 5);
