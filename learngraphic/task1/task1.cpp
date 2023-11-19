@@ -19,13 +19,13 @@ typedef struct tagBlock {
 	double angle;
 }TBlock;
 
-TBlock triangleSmall1 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0} },3,YELLOW, -PI / 4,sqrt(2) * 3 * UNIT_LEN / 2, sqrt(2) / 2 * UNIT_LEN };
-TBlock triangleSmall2 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0}},3,WHITE, PI / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
-TBlock triangleMedium = { { {0,0},{0,sqrt(2) * UNIT_LEN},{sqrt(2) * UNIT_LEN,0},{0,0} },3,BLUE, PI, 2 * sqrt(2) * UNIT_LEN, 2 * sqrt(2) * UNIT_LEN };
-TBlock triangleBig1 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,RED, PI * 3 / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
-TBlock triangleBig2 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,GREEN, PI * 5 / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
-TBlock square = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,1 * UNIT_LEN},{1 * UNIT_LEN,0} },4,CYAN, -PI / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
-TBlock parallelRect = { { {0,0},{sqrt(2) * UNIT_LEN,0},{sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN},{-sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN} },4,BROWN, 0, sqrt(2) / 2 * UNIT_LEN, sqrt(2) * 3 * UNIT_LEN / 2 };
+TBlock triangleSmall1 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0} },3,YELLOW, -PI / 4 };
+TBlock triangleSmall2 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0}},3,WHITE, PI / 4 };
+TBlock triangleMedium = { { {0,0},{0,sqrt(2) * UNIT_LEN},{sqrt(2) * UNIT_LEN,0},{0,0} },3,BLUE, PI };
+TBlock triangleBig1 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,RED, PI * 3 / 4 };
+TBlock triangleBig2 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,GREEN, PI * 5 / 4 };
+TBlock square = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,1 * UNIT_LEN},{1 * UNIT_LEN,0} },4,CYAN, -PI / 4};
+TBlock parallelRect = { { {0,0},{sqrt(2) * UNIT_LEN,0},{sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN},{-sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN} },4,BROWN, 0 };
 
 void moveBlock(TPoint* pts, int num, double xoff, double yoff) {
 	for (int i = 0; i < num; i++) {
