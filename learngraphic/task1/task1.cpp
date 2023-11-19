@@ -11,13 +11,21 @@ typedef struct tagTPoint {
 	double y;
 } TPoint;
 
-TPoint triangleSmall1[3] = { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0} };
-TPoint triangleSmall2[3] = { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0} };
-TPoint triangleMedium[3] = { {0,0},{0,sqrt(2) * UNIT_LEN},{sqrt(2) * UNIT_LEN,0} };
-TPoint triangleBig1[3] = { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0} };
-TPoint triangleBig2[3] = { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0} };
-TPoint square[4] = { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,1 * UNIT_LEN},{1 * UNIT_LEN,0} };
-TPoint parallelRect[4] = { {0,0},{sqrt(2) * UNIT_LEN,0},{sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN},{-sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN} };
+typedef struct tagBlock {
+	TPoint pts[4];
+	double xoff, yoff;
+	int num;
+	COLORREF color;
+	double angle;
+}TBlock;
+
+TBlock triangleSmall1 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0} },3,YELLOW, -PI / 4,sqrt(2) * 3 * UNIT_LEN / 2, sqrt(2) / 2 * UNIT_LEN };
+TBlock triangleSmall2 = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,0},{0,0}},3,WHITE, PI / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
+TBlock triangleMedium = { { {0,0},{0,sqrt(2) * UNIT_LEN},{sqrt(2) * UNIT_LEN,0},{0,0} },3,BLUE, PI, 2 * sqrt(2) * UNIT_LEN, 2 * sqrt(2) * UNIT_LEN };
+TBlock triangleBig1 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,RED, PI * 3 / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
+TBlock triangleBig2 = { { {0,0},{0,2 * UNIT_LEN},{2 * UNIT_LEN,0},{0,0} }, 3,GREEN, PI * 5 / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
+TBlock square = { { {0,0},{0,1 * UNIT_LEN},{1 * UNIT_LEN,1 * UNIT_LEN},{1 * UNIT_LEN,0} },4,CYAN, -PI / 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN };
+TBlock parallelRect = { { {0,0},{sqrt(2) * UNIT_LEN,0},{sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN},{-sqrt(2) / 2 * UNIT_LEN,sqrt(2) / 2 * UNIT_LEN} },4,BROWN, 0, sqrt(2) / 2 * UNIT_LEN, sqrt(2) * 3 * UNIT_LEN / 2 };
 
 void moveBlock(TPoint* pts, int num, double xoff, double yoff) {
 	for (int i = 0; i < num; i++) {
@@ -35,43 +43,27 @@ void rotateBlock(TPoint*pts, int num, double angle) {
 	}
 }
 
-void drawBlock(TPoint* pts, int num, double angle, double xoff, double yoff) {
-	rotateBlock(pts, num, angle);
-	moveBlock(pts, num, xoff, yoff);
+void drawBlock(TBlock*blk) {
+	rotateBlock(blk->pts, blk->num, blk->angle);
+	moveBlock(blk->pts, blk->num, blk->xoff,blk->yoff);
 	POINT pts1[4];
-	for (int i = 0; i < num; i++) {
-		pts1[i].x = (int)round(pts[i]);
+	for (int i = 0; i < blk->num; i++) {
+		pts1[i].x = (int)round(blk->pts[i].x);
+		pts1[i].y = (int)round(blk->pts[i].y);
 	}
+	setfillcolor(blk->color);
+	fillpolygon(pts1, blk->num);
 }
 int main() {
 	initgraph(800, 800);
-	setfillcolor(RED);
-	rotateBlock((TPoint*)triangleSmall1, 3, -PI / 4);
-	moveBlock((TPoint*)triangleSmall1, 3, sqrt(2) * 3 * UNIT_LEN / 2, sqrt(2) / 2 * UNIT_LEN);
-	fillpolygon((POINT*)triangleSmall1, 3);
 
-	rotateBlock((TPoint*)triangleSmall2, 3, PI / 4);
-	moveBlock((TPoint*)triangleSmall2, 3, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN);
-	fillpolygon((POINT*)triangleSmall2, 3);
-
-	rotateBlock((TPoint*)triangleMedium, 3, PI);
-	moveBlock((TPoint*)triangleMedium, 3, 2 * sqrt(2) * UNIT_LEN, 2 * sqrt(2) * UNIT_LEN);
-	fillpolygon((POINT*)triangleMedium, 3);
-	
-	rotateBlock((TPoint*)triangleBig1, 3, PI * 3 / 4);
-	moveBlock((TPoint*)triangleBig1, 3, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN);
-	fillpolygon((POINT*)triangleBig1, 3);
-
-	rotateBlock((TPoint*)triangleBig2, 3, PI * 5 / 4);
-	moveBlock((TPoint*)triangleBig2, 3, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN);
-	fillpolygon((POINT*)triangleBig2, 3);
-
-	rotateBlock((TPoint*)square, 4, -PI / 4);
-	moveBlock((TPoint*)square, 4, sqrt(2) * UNIT_LEN, sqrt(2) * UNIT_LEN);
-	fillpolygon((POINT*)square, 4);
-
-	moveBlock((TPoint*)parallelRect , 4, sqrt(2) / 2 * UNIT_LEN, sqrt(2) * 3 * UNIT_LEN / 2);
-	fillpolygon((POINT*)parallelRect, 4);
+	drawBlock(&triangleSmall1);
+	drawBlock(&triangleSmall2);
+	drawBlock(&triangleMedium);
+	drawBlock(&triangleBig1);
+	drawBlock(&triangleBig2);
+	drawBlock(&square);
+	drawBlock(&parallelRect);
 
 	getchar();
 	closegraph;
